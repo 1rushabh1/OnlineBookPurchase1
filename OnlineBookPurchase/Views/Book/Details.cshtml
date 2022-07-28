@@ -1,0 +1,69 @@
+﻿@model Book
+
+@{
+    ViewData["Title"] = "Books Details";
+}
+
+<div class="row">
+    
+         <div class="col-md-8 offset-2">
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.ImageURL" width="100%" alt="@Model.Name">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><b style="color: blue; background-color: lightgreen;">@Model.Description</b></p>
+                            <p class="card-text"><b style="background-color: antiquewhite;">Book:</b><br /><b class="text-center">@Model.Name</b></p>
+                            <p class="card-text"><b style="background-color: antiquewhite;">Category:</b><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>@Model.BookCategory</b></p>
+                            <p class="card-text">
+                                <b style="background-color: antiquewhite;">Publication:</b>
+                                <a asp-controller="Publication" asp-action="Details" asp-route-id="@Model.PublicationId">
+                                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>@Model.Publications.FullName</b>
+                                </a>
+                            </p>
+
+                            <p class="card-text">
+                                <b>Writer: </b>
+                                <hr />
+                                <div class="row">
+                                    @foreach (var writer in Model.Book_Writer)
+                                    {
+                                        <div class="card-columns text-center">
+                                            <img class="border-info rounded-circle" src="@writer.Writer.ProfilePictureURL" style="max-width: 150px" />
+                                            <br />
+                                            <a asp-controller="Writer" asp-action="Details" asp-route-id="@writer.WriterId">
+                                                @writer.Writer.FullName
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                    Back To List
+                                </a>
+                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
